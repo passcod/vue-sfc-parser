@@ -1,3 +1,22 @@
+/**
+ * Parses a Vue-style Single File Component in a limited fashion for further
+ * post-processing, with no dependencies, suitable for use in a Service Worker
+ * or other such constrained environment.
+ *
+ * Parses only the top-level tags and provides their content as strings. Does
+ * not prescribe any set of top-level tags, it will just parse everything. Also
+ * supports HTML comments. Has some support for attributes on top-level tags,
+ * such as for `<style scoped>` and `<script type="text/typescript">`. Supports
+ * nested <template> tags (it will leave interior ones as string content but it
+ * internally keeps track for proper parsing).
+ *
+ * Does not support the string `</script>` inside a script tag, and similarly
+ * for other tags. Just break it up e.g. `"<" + "/script>"` if you need to.
+ *
+ * @param str {string} source of the SFC to parse
+ * @returns {Object[]} array of `{ tag: 'root level tag name', content: 'content', [attrs: { name: 'value' }] }`
+ * @license Apache-2.0 OR MIT
+ */
 export default function parseSfc(str) {
   const COMMENT = Symbol('comment');
   const tags = [];
