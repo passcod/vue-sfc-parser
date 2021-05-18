@@ -7,7 +7,11 @@
     "test": "node tests.mjs",
     "build:esm-min": "babel sfc-parser.mjs --out-file dist/sfc-parser.esm.min.js --source-maps",
     "build:umd-min": "babel sfc-parser.mjs --out-file dist/sfc-parser.umd.min.js --plugins @babel/plugin-transform-modules-umd --source-maps --module-id parseSfc",
-    "build": "npm run build:esm-min && npm run build:umd-min"
+    "build:banner": "sed -i \"1s;^;// Version $(jq .version package.json -r). Copyright Félix Saparelli, license Apache 2.0 OR MIT. See https://github.com/passcod/vue-sfc-parser\\\\n;\" dist/*.min.js",
+    "build": "npm run build:esm-min && npm run build:umd-min && npm run build:banner",
+    "preversion": "npm run test",
+    "version": "npm run build",
+    "postversion": "git push --follow-tags"
   },
   "repository": {
     "type": "git",

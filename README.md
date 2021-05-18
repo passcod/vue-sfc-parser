@@ -24,6 +24,8 @@ internally keeps track for proper parsing).
 Does not support the string `</script>` inside a script tag, and similarly
 for other tags. Just break it up e.g. `"<" + "/script>"` if you need to.
 
+Zero dependencies, 2KB minified, <1KB gzipped.
+
 
 Install
 -------

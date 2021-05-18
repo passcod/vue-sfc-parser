@@ -49,28 +49,28 @@ export default function parseSfc(str) {
         throw new Error(`Unexpected '${char}', expected whitespace or '<'.`);
       } else {
         if (attr) {
-          if (!attr.name) {
+          if (!attr.n) {
             if (/[a-z0-9-]/i.test(char)) {
-              attr.partial += char;
+              attr.p += char;
               continue;
             }
 
             if (char == '=') {
-              attr.name = attr.partial;
-              attr.partial = '';
+              attr.n = attr.p;
+              attr.p = '';
               continue;
             }
 
             if (/\s/.test(char)) {
-              if (!attr.partial) continue;
-              attrs[attr.partial] = attr.partial;
-              attr.partial = '';
+              if (!attr.p) continue;
+              attrs[attr.p] = attr.p;
+              attr.p = '';
               continue;
             }
 
             if (char == '>') {
-              if (attr.partial) {
-                attrs[attr.partial] = attr.partial;
+              if (attr.p) {
+                attrs[attr.p] = attr.p;
               }
               attr = null;
               tag = partial.slice(1);
@@ -81,34 +81,34 @@ export default function parseSfc(str) {
 
             throw new Error(`Unexpected '${char}', expected whitespace, attribute name, or '>'.`);
           } else {
-            if (!attr.partial) {
+            if (!attr.p) {
               if (char == '>') throw new Error(`Unexpected '>', expected attribute value.`);
               if (/\s/.test(char)) continue;
 
-              attr.partial += char;
+              attr.p += char;
               continue;
             }
 
             if (
-              (attr.partial.startsWith('"') && char == '"') ||
-              (attr.partial.startsWith('\'') && char == '\'')
+              (attr.p.startsWith('"') && char == '"') ||
+              (attr.p.startsWith('\'') && char == '\'')
             ) {
-              if (attr.partial.endsWith('\\')) {
-                attr.partial.pop();
-                attr.partial.push(char);
+              if (attr.p.endsWith('\\')) {
+                attr.p.pop();
+                attr.p.push(char);
                 continue;
               }
 
-              attrs[attr.name] = attr.partial.slice(1);
+              attrs[attr.n] = attr.p.slice(1);
               attr = null;
               continue;
             }
 
             if (char == '>') {
-              if (attr.partial.startsWith('"') || attr.partial.startsWith('\''))
-                throw new Error(`Unexpected end of attribute, expected '${attr.partial[0]}' terminator.`);
+              if (attr.p.startsWith('"') || attr.p.startsWith('\''))
+                throw new Error(`Unexpected end of attribute, expected '${attr.p[0]}' terminator.`);
 
-              attrs[attr.name] = attr.partial;
+              attrs[attr.n] = attr.p;
               attr = null;
               tag = partial.slice(1);
               partial = '';
@@ -116,7 +116,7 @@ export default function parseSfc(str) {
               continue;
             }
 
-            attr.partial += char;
+            attr.p += char;
             continue;
           }
         } else {
@@ -140,7 +140,8 @@ export default function parseSfc(str) {
               continue;
             }
 
-            attr = { partial: '', name: '' };
+            // attr [p]artial, [n]ame
+            attr = { p: '', n: '' };
             continue;
           }
 
