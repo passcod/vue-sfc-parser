@@ -6,6 +6,7 @@ Vue SFC Parser
 
 - [Dual-licensed][copyright] with Apache 2.0 and MIT.
 - Uses [Caretaker Maintainership][caretaker].
+- Zero dependencies, 2KB minified, <1KB gzipped.
 
 [caretaker]: ./CARETAKERS.md
 [copyright]: ./COPYRIGHT
@@ -24,15 +25,13 @@ internally keeps track for proper parsing).
 Does not support the string `</script>` inside a script tag, and similarly
 for other tags. Just break it up e.g. `"<" + "/script>"` if you need to.
 
-Zero dependencies, 2KB minified, <1KB gzipped.
-
 
 Install
 -------
 
-Via npm: `npm i https://github.com/passcod/vue-sfc-parser`.
-
-Or download the relevant file(s) from the [`dist/`](./dist) folder.
+- Via npm: `npm i https://github.com/passcod/vue-sfc-parser`.
+- From the [latest release](https://github.com/passcod/vue-sfc-parser/releases).
+- Or copy the relevant file(s) from the [`dist/`](./dist) folder.
 
 
 Use
