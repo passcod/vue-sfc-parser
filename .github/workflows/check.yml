@@ -10,10 +10,8 @@ on:
 name: Tests
 
 jobs:
-  check:
-    name: Tests
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - run: npm it
+      - run: pnpm it
 
