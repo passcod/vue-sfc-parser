@@ -1,0 +1,19 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - try/**
+    tags-ignore:
+      - v*.*.*
+
+name: Tests
+
+jobs:
+  check:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: npm it
+
