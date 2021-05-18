@@ -1,0 +1,27 @@
+{
+  "name": "vue-sfc-parser",
+  "version": "1.0.0",
+  "description": "A limited parser for Vue Single File Components",
+  "main": "sfc-parser.mjs",
+  "scripts": {
+    "test": "node tests.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/passcod/vue-sfc-parser.git"
+  },
+  "keywords": [
+    "vue",
+    "single-file-component",
+    "parser"
+  ],
+  "author": "Félix Saparelli <felix@passcod.name> (https://passcod.name/)",
+  "license": "Apache-2.0 OR MIT",
+  "bugs": {
+    "url": "https://github.com/passcod/vue-sfc-parser/issues"
+  },
+  "homepage": "https://github.com/passcod/vue-sfc-parser#readme",
+  "devDependencies": {
+    "tape": "^5.2.2"
+  }
+}
