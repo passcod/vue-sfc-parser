@@ -1,0 +1,7 @@
+{
+  "sourceType": "module",
+  "comments": false,
+  "presets": [["minify", {
+    "removeConsole": true
+  }]]
+}

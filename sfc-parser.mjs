@@ -1,4 +1,4 @@
-export default function parseSfc (str) {
+export default function parseSfc(str) {
   const COMMENT = Symbol('comment');
   const tags = [];
 

@@ -34,9 +34,9 @@ export default {
     `;
 
   const expected = [
-      { tag: 'template', content: '\n  <span>Hello {{ name }}</span>\n' },
-      { tag: 'script', content: '\nexport default {\n  data () {\n    return { name: \'world\' };\n  }\n}\n' },
-    ];
+    { tag: 'template', content: '\n  <span>Hello {{ name }}</span>\n' },
+    { tag: 'script', content: '\nexport default {\n  data () {\n    return { name: \'world\' };\n  }\n}\n' },
+  ];
 
   t.same(parser(input), expected);
 });
@@ -63,18 +63,18 @@ span { color: red; }
     `;
 
   const expected = [
-      { tag: 'template', content: '\n  <span>Hello {{ name }}</span>\n' },
-      { tag: 'script', content: '\nexport default {\n  data () {\n    return { name: \'world\' };\n  }\n}\n' },
-      { tag: 'style', content: '\nspan { color: red; }\n' },
-    ];
+    { tag: 'template', content: '\n  <span>Hello {{ name }}</span>\n' },
+    { tag: 'script', content: '\nexport default {\n  data () {\n    return { name: \'world\' };\n  }\n}\n' },
+    { tag: 'style', content: '\nspan { color: red; }\n' },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('nested template', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
   <span>
     Hello
@@ -84,16 +84,16 @@ const input = `
     `;
 
   const expected = [
-      { tag: 'template', content: '\n  <span>\n    Hello\n    <template>{{ name }}</template>\n  </span>\n' },
-    ];
+    { tag: 'template', content: '\n  <span>\n    Hello\n    <template>{{ name }}</template>\n  </span>\n' },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('script with double-quoted type', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <script type="text/typescript">
 export default {
   methods: {
@@ -104,16 +104,16 @@ export default {
     `;
 
   const expected = [
-      { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
-    ];
+    { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('script with single-quoted type', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <script type='text/typescript'>
 export default {
   methods: {
@@ -124,16 +124,16 @@ export default {
     `;
 
   const expected = [
-      { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
-    ];
+    { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('script with unquoted type', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <script type=text/typescript>
 export default {
   methods: {
@@ -144,16 +144,16 @@ export default {
     `;
 
   const expected = [
-      { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
-    ];
+    { tag: 'script', content: '\nexport default {\n  methods: {\n    foo (bar: string) {}\n  }\n}\n', attrs: { type: 'text/typescript' } },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('nested template with inner attribute', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
   <span>
     Hello
@@ -163,48 +163,48 @@ const input = `
     `;
 
   const expected = [
-      { tag: 'template', content: '\n  <span>\n    Hello\n    <template class="nevermind that this is invalid vue">{{ name }}</template>\n  </span>\n' },
-    ];
+    { tag: 'template', content: '\n  <span>\n    Hello\n    <template class="nevermind that this is invalid vue">{{ name }}</template>\n  </span>\n' },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('style with scoped', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <style scoped>
 .red { text-decoration: overline red; }
 </style>
     `;
 
   const expected = [
-      { tag: 'style', content: '\n.red { text-decoration: overline red; }\n', attrs: { scoped: 'scoped' } },
-    ];
+    { tag: 'style', content: '\n.red { text-decoration: overline red; }\n', attrs: { scoped: 'scoped' } },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('template with lots of spans', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
   <div>${'<span>one</span>'.repeat(99)}</div>
 </template>
     `;
 
   const expected = [
-      { tag: 'template', content: `\n  <div>${'<span>one</span>'.repeat(99)}</div>\n` },
-    ];
+    { tag: 'template', content: `\n  <div>${'<span>one</span>'.repeat(99)}</div>\n` },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('mutiple scripts and styles', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <style>.font { color: red; }</style>
 
 <template>
@@ -224,36 +224,36 @@ function foo () {}
     `;
 
   const expected = [
-      { tag: 'style', content: `.font { color: red; }` },
-      { tag: 'template', content: `\n  <div>Hello</div>\n` },
-      { tag: 'script', content: `\nexport default {}\n` },
-      { tag: 'style', content: `\n`, attrs: { scoped: 'scoped' } },
-      { tag: 'script', content: `\nfunction foo () {}\n`, },
-    ];
+    { tag: 'style', content: `.font { color: red; }` },
+    { tag: 'template', content: `\n  <div>Hello</div>\n` },
+    { tag: 'script', content: `\nexport default {}\n` },
+    { tag: 'style', content: `\n`, attrs: { scoped: 'scoped' } },
+    { tag: 'script', content: `\nfunction foo () {}\n`, },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('template with nested self closing tag', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
 <meta charset="UTF-8" />
 </template>
     `;
 
   const expected = [
-      { tag: 'template', content: `\n<meta charset="UTF-8" />\n` },
-    ];
+    { tag: 'template', content: `\n<meta charset="UTF-8" />\n` },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('template with nested unclosed tag', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
 <ul>
   <li>Liv is livid.
@@ -262,32 +262,32 @@ const input = `
     `;
 
   const expected = [
-      { tag: 'template', content: `\n<ul>\n  <li>Liv is livid.\n</ul>\n` },
-    ];
+    { tag: 'template', content: `\n<ul>\n  <li>Liv is livid.\n</ul>\n` },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('template with nested JS expression', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <template>
 <p v-if="1 > 2 || 4 << 6">Nope</p>
 </template>
     `;
 
   const expected = [
-      { tag: 'template', content: `\n<p v-if="1 > 2 || 4 << 6">Nope</p>\n` },
-    ];
+    { tag: 'template', content: `\n<p v-if="1 > 2 || 4 << 6">Nope</p>\n` },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('mutiple scripts and comments', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <script>
 export default {}
 </script>
@@ -300,17 +300,17 @@ function foo () {}
     `;
 
   const expected = [
-      { tag: 'script', content: `\nexport default {}\n` },
-      { tag: 'script', content: `\nfunction foo () {}\n`, },
-    ];
+    { tag: 'script', content: `\nexport default {}\n` },
+    { tag: 'script', content: `\nfunction foo () {}\n`, },
+  ];
 
   t.same(parser(input), expected);
 });
 
 test('only comment', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <!-- placeholder -->
     `;
 
@@ -320,9 +320,9 @@ const input = `
 });
 
 test('empty comment', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <!-- -->
     `;
 
@@ -332,9 +332,9 @@ const input = `
 });
 
 test('multiline comment', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <!-- place
 holder -->
     `;
@@ -345,9 +345,9 @@ holder -->
 });
 
 test('nested comment start', (t) => {
-t.plan(1);
+  t.plan(1);
 
-const input = `
+  const input = `
 <!-- place <!-- holder -->
     `;
 

@@ -4,7 +4,10 @@
   "description": "A limited parser for Vue Single File Components",
   "main": "sfc-parser.mjs",
   "scripts": {
-    "test": "node tests.mjs"
+    "test": "node tests.mjs",
+    "build:esm-min": "babel sfc-parser.mjs --out-file dist/sfc-parser.esm.min.js --source-maps",
+    "build:umd-min": "babel sfc-parser.mjs --out-file dist/sfc-parser.umd.min.js --plugins @babel/plugin-transform-modules-umd --source-maps --module-id parseSfc",
+    "build": "npm run build:esm-min && npm run build:umd-min"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,10 @@
   },
   "homepage": "https://github.com/passcod/vue-sfc-parser#readme",
   "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-modules-umd": "^7.14.0",
+    "babel-preset-minify": "^0.5.1",
     "tape": "^5.2.2"
   }
 }
